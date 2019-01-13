@@ -40,4 +40,5 @@ jobs:
       - run: |
           ./vendor/bin/phpcs --warning-severity=0 --standard=PSR2 --report=code --report-width=120 ./src
       - run: |
-          ./vendor/bin/phpcs --error-severity=0 --runtime-set ignore_warnings_on_exit 1 --standard=PSR2 --report=emacs ./src | ./reviewdog -efm="%f:%l:%c: %m" -reporter=github-pr-review
+          ./vendor/bin/phpcs --error-severity=0 --standard=PSR2 --report=emacs ./src | ./reviewdog -efm="%f:%l:%c: %m" -reporter=github-pr-review
+#          ./vendor/bin/phpcs --error-severity=0 --runtime-set ignore_warnings_on_exit 1 --standard=PSR2 --report=emacs ./src | ./reviewdog -efm="%f:%l:%c: %m" -reporter=github-pr-review
