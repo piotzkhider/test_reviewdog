@@ -17,6 +17,10 @@ commands:
             - v1-dependencies-{{ checksum "composer.json" }}
             - v1-dependencies-
 
+  install_reviewdog:
+    steps:
+      - run: curl -fSL https://github.com/haya14busa/reviewdog/releases/download/$REVIEWDOG_VERSION/reviewdog_linux_amd64 -o reviewdog && chmod +x ./reviewdog
+
 jobs:
   build:
     executor:
@@ -33,7 +37,7 @@ jobs:
             - ./vendor
           key: v1-dependencies-{{ checksum "composer.json" }}
 
-      - run: curl -fSL https://github.com/haya14busa/reviewdog/releases/download/$REVIEWDOG_VERSION/reviewdog_linux_amd64 -o reviewdog && chmod +x ./reviewdog
+      - install_reviewdog
 
   phpcs:
     executor:
@@ -52,6 +56,7 @@ jobs:
     steps:
       - checkout
       - restore_composer
+      - install_reviewdog
 
       - run: |
           ./vendor/bin/phpcs --error-severity=0 --runtime-set ignore_warnings_on_exit 1 --standard=./phpcs.xml --report=emacs | ./reviewdog -efm="%f:%l:%c: %m" -reporter=github-pr-review
@@ -73,6 +78,7 @@ jobs:
     steps:
       - checkout
       - restore_composer
+      - install_reviewdog
 
       - run: |
           ./vendor/bin/phpstan analyse -c ./strict.neon -n --error-format=raw --no-progress | ./reviewdog -f=phpstan -reporter=github-pr-review
