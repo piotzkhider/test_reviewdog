@@ -87,15 +87,19 @@ workflows:
   build-and-test:
     jobs:
       - build
+
       - phpcs:
           requires:
             - build
+
       - phpstan:
           requires:
             - build
+
       - phpcs-strict:
           requires:
             - build
+
       - phpstan-strict:
           requires:
             - build
