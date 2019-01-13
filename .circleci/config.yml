@@ -59,7 +59,7 @@ jobs:
       - install_reviewdog
 
       - run: |
-          ./vendor/bin/phpcs --error-severity=0 --runtime-set ignore_warnings_on_exit 1 --standard=./phpcs.xml --report=emacs | ./reviewdog -efm="%f:%l:%c: %m" -reporter=github-pr-review
+          ./vendor/bin/phpcs --error-severity=0 --standard=./phpcs.xml --report=emacs | ./reviewdog -efm="%f:%l:%c: %m" -reporter=github-pr-review
 
   phpstan:
     executor:
