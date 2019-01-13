@@ -1,8 +1,13 @@
 {
-    "name": "piotzkhider/test_reviewdog",
-    "require-dev": {
-        "squizlabs/php_codesniffer": "^3.4",
-        "phpstan/phpstan": "^0.10.8"
-    },
-    "require": {}
+  "name": "piotzkhider/test_reviewdog",
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^3.4",
+    "phpstan/phpstan": "^0.10.8",
+    "phpstan/phpstan-strict-rules": "^0.10.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Acme\\": "src/"
+    }
+  }
 }
