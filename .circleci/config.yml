@@ -1,32 +1,30 @@
-# PHP CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-php/ for more details
-#
-version: 2
-jobs:
-  build:
+version: 2.1
+
+executors:
+  default:
     docker:
-      # specify the version you desire here
       - image: circleci/php:7.1-browsers
         environment:
           REVIEWDOG_VERSION: "0.9.11"
 
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mysql:9.4
-
     working_directory: ~/repo
 
+commands:
+  restore_composer:
     steps:
-      - checkout
-
-      # Download and cache dependencies
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "composer.json" }}
-            # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
+
+jobs:
+  build:
+    executor:
+      name: default
+
+    steps:
+      - checkout
+      - restore_composer
 
       - run: composer install -n --prefer-dist
 
@@ -39,25 +37,36 @@ jobs:
 
   phpcs:
     steps:
+      - checkout
+      - restore_composer
+
       - run: ./vendor/bin/phpcs --warning-severity=0 --standard=./phpcs.xml --report=code --report-width=120
 
   phpcs-strict:
     steps:
+      - checkout
+      - restore_composer
+
       - run: |
           ./vendor/bin/phpcs --error-severity=0 --runtime-set ignore_warnings_on_exit 1 --standard=./phpcs.xml --report=emacs | ./reviewdog -efm="%f:%l:%c: %m" -reporter=github-pr-review
 
   phpstan:
     steps:
+      - checkout
+      - restore_composer
+
       - run: ./vendor/bin/phpstan analyse -n --error-format=raw --no-progress
 
   phpstan-strict:
     steps:
+      - checkout
+      - restore_composer
+
       - run: |
           ./vendor/bin/phpstan analyse -c ./strict.neon -n --error-format=raw --no-progress | ./reviewdog -f=phpstan -reporter=github-pr-review
 
 workflows:
-  version: 2
-  build-test:
+  build-and-test:
     jobs:
       - build
       - phpcs:
