@@ -69,7 +69,7 @@ jobs:
       - checkout
       - restore_composer
 
-      - run: ./vendor/bin/phpstan analyse -n --error-format=raw --no-progress
+      - run: ./vendor/bin/phpstan analyse -n --no-progress
 
   phpstan-strict:
     executor:
@@ -92,14 +92,14 @@ workflows:
           requires:
             - build
 
-      - phpstan:
-          requires:
-            - build
-
       - phpcs-strict:
+          requires:
+            - phpcs
+
+      - phpstan:
           requires:
             - build
 
       - phpstan-strict:
           requires:
-            - build
+            - phpstan
