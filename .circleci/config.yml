@@ -37,8 +37,6 @@ jobs:
             - ./vendor
           key: v1-dependencies-{{ checksum "composer.json" }}
 
-      - install_reviewdog
-
   phpcs:
     executor:
       name: default
