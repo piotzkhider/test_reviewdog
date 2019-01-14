@@ -49,18 +49,6 @@ jobs:
 
       - run: ./vendor/bin/phpcs --warning-severity=0 --standard=./phpcs.xml --report=code --report-width=120
 
-  phpcs-strict:
-    executor:
-      name: default
-
-    steps:
-      - checkout
-      - restore_composer
-      - install_reviewdog
-
-      - run: |
-          ./vendor/bin/phpcs --error-severity=0 --standard=./phpcs.xml --report=emacs | ./reviewdog -efm="%f:%l:%c: %m" -reporter=github-pr-review
-
   phpstan:
     executor:
       name: default
@@ -71,7 +59,7 @@ jobs:
 
       - run: ./vendor/bin/phpstan analyse -n --no-progress
 
-  phpstan-strict:
+  reviewdog:
     executor:
       name: default
 
@@ -80,8 +68,7 @@ jobs:
       - restore_composer
       - install_reviewdog
 
-      - run: |
-          ./vendor/bin/phpstan analyse -c ./strict.neon -n --error-format=raw --no-progress | ./reviewdog -f=phpstan -reporter=github-pr-review
+      - run: ./reviewdog -conf=./.reviewdog.yml -reporter=github-pr-review
 
 workflows:
   build-and-test:
@@ -92,14 +79,11 @@ workflows:
           requires:
             - build
 
-      - phpcs-strict:
-          requires:
-            - phpcs
-
       - phpstan:
           requires:
             - build
 
-      - phpstan-strict:
+      - reviewdog:
           requires:
+            - phpcs
             - phpstan
