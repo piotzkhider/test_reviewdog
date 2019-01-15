@@ -57,6 +57,16 @@ jobs:
 
       - run: ./vendor/bin/phpstan analyse -n --no-progress
 
+  phpmd:
+    executor:
+      name: default
+
+    steps:
+      - checkout
+      - restore_composer
+
+      - run: ./vendor/bin/phpmd ./src text ./phpmd.xml
+
   reviewdog:
     executor:
       name: default
@@ -73,7 +83,20 @@ workflows:
     jobs:
       - build
 
-      - reviewdog:
+      #      - phpcs:
+      #          requires:
+      #            - build
+      #
+      #      - phpstan:
+      #          requires:
+      #            - build
+
+      - phpmd:
           requires:
             - build
 
+      - reviewdog:
+          requires:
+            - build
+#            - phpcs
+#            - phpstan
