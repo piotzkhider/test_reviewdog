@@ -73,15 +73,7 @@ workflows:
     jobs:
       - build
 
-      - phpcs:
-          requires:
-            - build
-
-      - phpstan:
-          requires:
-            - build
-
       - reviewdog:
           requires:
-            - phpcs
-            - phpstan
+            - build
+
