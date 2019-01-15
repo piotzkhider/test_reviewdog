@@ -8,3 +8,10 @@ runner:
   phpstan:
     cmd: |
       ./vendor/bin/phpstan analyse -c ./strict.neon -n --error-format=raw --no-progress
+
+  phpmd:
+    cmd: |
+      ./vendor/bin/phpmd ./src text ./phpmd.xml
+    errorformat:
+      - "%f:%l\t%m"
+      - "%f\t-\t%m"
