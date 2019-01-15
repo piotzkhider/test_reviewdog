@@ -1,7 +1,16 @@
 runner:
+  phpcs:
+    cmd: |
+      ./vendor/bin/phpcs --error-severity=0 --standard=./phpcs.xml --report=emacs
+    errorformat:
+      - "%f:%l:%c: %m"
+
+  phpstan:
+    cmd: |
+      ./vendor/bin/phpstan analyse -c ./strict.neon -n --error-format=raw --no-progress
+
   phpmd:
     cmd: |
       ./vendor/bin/phpmd ./src text ./phpmd.xml
     errorformat:
-      - "%f:%l\t%m"
-      - "%f\t-\t%m"
+      - "%f:%l%\t%m"
