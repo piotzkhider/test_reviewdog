@@ -13,4 +13,4 @@ runner:
     cmd: |
       ./vendor/bin/phpmd ./src text ./phpmd.xml
     errorformat:
-      - "%f:%l%\t%m"
+      - "%f:%l\t%m"
