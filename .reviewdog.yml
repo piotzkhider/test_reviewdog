@@ -7,4 +7,4 @@ runner:
 
   phpstan:
     cmd: |
-      ./vendor/bin/phpstan analyse -c ./strict.neon -n --error-format=raw --no-progress
+      ./vendor/bin/phpstan analyse -n --no-progress --error-format=raw
