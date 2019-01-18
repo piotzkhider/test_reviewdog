@@ -70,4 +70,3 @@ workflows:
       - reviewdog:
           requires:
             - phpcs
-            - phpstan
