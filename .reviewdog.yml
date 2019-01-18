@@ -8,3 +8,9 @@ runner:
   phpstan:
     cmd: |
       ./vendor/bin/phpstan analyse -n --no-progress --error-format=raw
+
+  phpmd:
+    cmd: |
+      ./vendor/bin/phpmd ./src text ./phmd.xml
+    errorformat:
+      - "%f:%l\t%m"
