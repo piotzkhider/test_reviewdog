@@ -47,16 +47,6 @@ jobs:
 
       - run: ./vendor/bin/phpcs --warning-severity=0 --standard=./phpcs.xml --report=code --report-width=120
 
-  phpstan:
-    executor:
-      name: default
-
-    steps:
-      - checkout
-      - restore_composer
-
-      - run: ./vendor/bin/phpstan analyse -n --no-progress
-
   reviewdog:
     executor:
       name: default
@@ -77,11 +67,6 @@ workflows:
           requires:
             - build
 
-      - phpstan:
-          requires:
-            - build
-
       - reviewdog:
           requires:
             - phpcs
-            - phpstan
