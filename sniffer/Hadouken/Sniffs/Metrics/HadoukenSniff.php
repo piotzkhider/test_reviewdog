@@ -8,7 +8,7 @@ use PHP_CodeSniffer\Standards\Generic\Sniffs\Metrics\NestingLevelSniff;
 
 class HadoukenSniff extends NestingLevelSniff
 {
-    public $absoluteNestingLevel = 1;
+    public $nestingLevel = 1;
 
     public function process(File $phpcsFile, $stackPtr)
     {
@@ -42,10 +42,10 @@ class HadoukenSniff extends NestingLevelSniff
                 $nestingLevel,
                 $this->absoluteNestingLevel,
             ];
-            $phpcsFile->addError('![D2e2-uLUwAAG5Yr](https://user-images.githubusercontent.com/7950487/54909662-10c5d000-4f2e-11e9-93cd-38274a6586bb.jpg)', $stackPtr, 'MaxExceeded', $data);
+            $phpcsFile->addError($error, $stackPtr, 'MaxExceeded', $data);
         } else {
             if ($nestingLevel > $this->nestingLevel) {
-                $warning = 'Function\'s nesting level (%s) exceeds %s; consider refactoring the function';
+                $warning = '![D2e2-uLUwAAG5Yr](https://user-images.githubusercontent.com/7950487/54909662-10c5d000-4f2e-11e9-93cd-38274a6586bb.jpg)';
                 $data = [
                     $nestingLevel,
                     $this->nestingLevel,
