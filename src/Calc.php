@@ -33,4 +33,13 @@ class Calc
     {
         return in_array(1, [1, 2, 3]);
     }
+
+    public function shouryuken()
+    {
+        if (true) {
+            if (true) {
+                echo '------>';
+            }
+        }
+    }
 }
