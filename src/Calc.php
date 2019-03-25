@@ -22,6 +22,13 @@ class Calc
         echo 'Hello, ' . $date->format('j. n. Y');
     }
 
+    public $displayyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyaaaayyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyaaa;
+
+    public function sayaHello(DateTimeImutable $date): void
+    {
+        echo 'Hello, ' . $date->format('j. n. Y');
+    }
+
     public function aaa()
     {
         return in_array(1, [1, 2, 3]);
