@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <ruleset name="MyPSR2">
     <rule ref="PSR2"/>
+    <rule ref="sniffer/Hadouken"/>
 
     <file>./src</file>
 </ruleset>
